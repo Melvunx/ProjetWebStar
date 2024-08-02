@@ -1,0 +1,120 @@
+extends linked 
+
+block content
+
+    style. 
+        h2 {
+            color : #bd4b4b;
+            font-size : 25pt;
+        }
+
+    body.bodyTGM
+        header.headercv    
+            div.headercv-content
+                a(href="/register"): button(class="head-solarsyst-btn") Register
+            div.headercv-content
+                h2 Starmation !
+            div.headercv-content
+                a(href="/"): button(class="head-solarsyst-btn") Home
+
+    
+        div(class="homeTGM")
+            .container-banner 
+                .section-banner
+                    #star-1
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-2
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-3
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-4
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-5
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-6
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-7
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-8
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-9
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-10
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-11
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+                    #star-12
+                        .curved-corner-star
+                            #curved-corner-bottomright
+                            #curved-corner-bottomleft
+                        .curved-corner-star
+                            #curved-corner-topright
+                            #curved-corner-topleft
+            
+            div.card-form-container
+                div.card
+                    form(class = "form", action = "/tologin", method="post")
+                        span(style = "text-align : center;"): h2 Welcome back to Starmation !
+                        if error 
+                            p.error= error
+                        div.under-card
+                            input(type = "text", name = "username", placeholder = "Username" required)
+                            input(type = "password", name = "password", placeholder = "Password" required)
+                            button(type = "submit") Login
+                            p(style = "color : black; font-weight : bold; margin : 15px auto;") Don't have an account? 
+                            a(href = "/register") Register here

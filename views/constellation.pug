@@ -1,0 +1,88 @@
+extends linked
+
+block content 
+            
+    body(class='bodyTGM')
+        header.headercv
+            section.secTGM1
+                h1.h1TGM &#127756 Constellations 
+                .homeTGM
+                    a(href='/stars') Go back to Starmation
+
+        
+        .slideshow-container
+
+        .mySlides.fade
+            .numbertext 1 / 12
+            img(src='/image/aquarius.jpg' style='width:32%')
+            .text &#9810 Aquarius is wet (January 21 - February 19)
+            
+        .mySlides.fade
+            .numbertext 2 / 12
+            img(src='/image/pisces.jpg' style='width:50%')
+            .text &#9811 Pisces are fishes (February 20 - March 20)
+        .mySlides.fade
+            .numbertext 3 / 12
+            img(src='/image/aries.jpeg' style='width:32%')
+            .text &#9800 Aries is aggressive (March 21 - April 20)
+        .mySlides.fade 
+            .numbertext 4 / 12
+            img(src='/image/taurus.jpeg' style='width:32%')
+            .text &#9801 Taurus is huge (April 21 - May 21)
+        .mySlides.fade 
+            .numbertext 5 / 12
+            img(src='/image/gemini.jpeg' style='width:32%')
+            .text &#9802 Gemini is bipolar (May 22 - June 21)
+        .mySlides.fade
+            .numbertext 6 / 12
+            img(src='/image/cancer.jpeg' style='width:32%')
+            .text 	&#9803 Cancer has style (June 22 - July 22)
+        .mySlides.fade 
+            .numbertext 7 / 12
+            img(src='/image/leo.jpeg' style='width:50%')
+            .text &#9804 Leo is a King (July 23 - August 22)
+        .mySlides.fade
+            .numbertext 8 / 12
+            img(src='/image/virgo.jpeg' style='width:32%')
+            .text &#9805 Virgo is a virgin (August 23 - September 22)
+        .mySlides.fade
+            .numbertext 9 / 12
+            img(src='/image/libra.jpeg' style='width:50%')
+            .text &#9806 Libra is a white knight (September 23 - October 22)
+        .mySlides.fade 
+            .numbertext 10 / 12
+            img(src='/image/scorpio.jpeg' style='width:32%')
+            .text &#9807 Scorpio is the GOAT (October 23 - November 22)
+        .mySlides.fade 
+            .numbertext 11 / 12
+            img(src='/image/sagitarius.jpeg' style='width:50%')
+            .text 	&#9808 Sagitarius is a semi-horse (November 23 - December 21)
+        .mySlides.fade 
+            .numbertext 12 / 12
+            img(src='/image/capricorn.jpeg' style='width:50%')
+            .text &#9809 Capriporn has horns (December 22 - January 20)
+
+
+
+        // Next and previous buttons
+        a.prev(onclick='plusSlides(-1)') &#x276E;
+        a.next(onclick='plusSlides(1)') &#x276F;
+        br
+        // The dots/circles
+        div(style='text-align:center')
+            span.dot(onclick='currentSlide(1)')
+            span.dot(onclick='currentSlide(2)')
+            span.dot(onclick='currentSlide(3)')
+            span.dot(onclick='currentSlide(4)')
+            span.dot(onclick='currentSlide(5)')
+            span.dot(onclick='currentSlide(6)')
+            span.dot(onclick='currentSlide(7)')
+            span.dot(onclick='currentSlide(8)')
+            span.dot(onclick='currentSlide(9)')
+            span.dot(onclick='currentSlide(10)')
+            span.dot(onclick='currentSlide(11)')
+            span.dot(onclick='currentSlide(12)')
+            
+            
+
+        script(src="/javascript/con.js")

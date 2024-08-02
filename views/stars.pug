@@ -1,0 +1,53 @@
+extends linked
+
+block content  
+    each user in users
+        body
+            .video-bg 
+                video(autoplay="autoplay" muted="" src="/video/Voie-lactée.mp4" )
+                div(class="popup" id="myPopupStars")
+                    .popup-content  
+                        h1 User setting | #{user.username}
+                        ul  
+                            li Name : #{user.name}
+                            li Lastname : #{user.lastname}
+                            li Birthday : #{user.birth_date}
+                            li Role : #{user.role_name}
+                                if user.role_name !== 'admin'
+                                    form(action="/become-admin", method="post" class="admin-form") 
+                                        .popup-input
+                                            .popup-input-content
+                                                p You want to become an admin? 
+                                                p Tap the secret code 
+                                                if error 
+                                                    p.error= error
+                                            .popup-input-content
+                                                input(type="password" name="secretCode" placeholder="Secret code...")
+                                            .popup-input-content
+                                                button(type="submit") Change
+                            button#closePopup Close
+                .grid-navbar
+                    .grid-navbar-content
+                        h1 #{user.username}
+                    .grid-navbar-content
+                        h1 Starmation
+                nav.navbar
+                    .nav-links-user
+                        ul
+                            li: p #{user.username}'s settings
+                            li: p(id="popupLink") Your Personal Info
+                            if errorAdmin
+                                li: p.errorAdmin= errorAdmin
+                            li: a(class="user-links"  href="/admin") Admin page 
+                            
+                            
+                    .nav-links-stars
+                        ul 
+                            li: a(class="stars-links"  href="/solarsyst") Solar system
+                            li: a(class="stars-links"  href="/constellation") Constellation
+                            li: a(class="stars-links"  href="/custom") Your Solar System 
+                            li: a(class="stars-links"  href="/logout") Log Out
+                    .menu-btn
+                        img(class="menu"  src="/image/menu-ham.png", alt="menu-btn")
+        
+        script(src="/javascript/stars.js")

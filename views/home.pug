@@ -1,0 +1,50 @@
+extends linked 
+
+block content
+
+    script.
+        function displayContent() {
+            document.getElementById('login-section').style.display = "block";
+            document.getElementById('context').style.display = "none";
+            document.getElementsByClassName('area').style.display = "none";
+        }
+    
+    style. 
+        body {
+            font-family : Futura;
+            height : 100vh;
+        }
+
+    body
+            
+        //- Contenu principal -//
+        div.context(id = "context")
+            div.title-home
+                h1 Hello Star Catcher !
+            button.lauch-button(type = "button", onclick = "displayContent()") Let's Go
+
+        //- Div avec les boutons de connexions et d'inscription -//
+        div#login-section
+            div.login-subsection
+                div.login-content
+                    a(href="/login"): button(class="head-button") Login
+                div.login-content
+                    a(href="/register"): button(class="head-button") Register
+
+        //- Formes qui se déplacent dans le fond -//
+        div.area
+            ul.circles
+                li
+                li
+                li
+                li
+                li
+                li
+                li
+                li
+                li
+                li
+    
+    
+    script(src="/javascript/home.js")
+    

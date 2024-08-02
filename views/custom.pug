@@ -1,0 +1,99 @@
+extends linked
+
+block content
+    .custom-bg 
+        .custom-img 
+            img(src="/image/fond-cosmos.jpg", alt="custom image" id="img-back-custom")
+            a(href="/stars"): h1 Welcome to your solar system custom !
+            .add-Btn 
+                .add-btn-content
+                    if !solarSystem || solarSystem.length === 0
+                        button(type="button", class="custom-btn", id="add_solar_system") Add Solar system
+                .add-btn-content
+                    button(type="button", class="custom-btn", id="add_astral") Add celestial body
+            div(class="popup", id="myPopupCustomSyst")
+                div.popup-content
+                    div.popup-custom
+                        .popup-custom-content
+                            h1 Create your solar system !
+                        .popup-custom-content
+                            form(action="/createCustomSolarSystem", method="post", class="form-popup")
+                                input(type="text", name="name_Solar_System", placeholder="Solar sytem name..." required)
+                                textarea(name="description", placeholder="Description..." required)
+                                button(type="submit" class="submiton-btn") Create
+                                button#closePopupCss(type="button" class="closePopup") Close
+            div(class="popup", id="myPopupCustomAstral")
+                .popup-content
+                    div.popup-custom
+                        .popup-custom-content
+                            h1 Add astral object 
+                        .popup-custom-content
+                            form(action="/addPlanet", method="post" class="form-popup")
+                                    input(type="text", name="astral_name", placeholder="Astral Object name..."  required)
+                                    input(type="text", name="nature_object", placeholder="Nature object..."  required)
+                                    input(type="number", name="diameter", placeholder="Diameter..." required)
+                                    input(type="text", name="distance", placeholder="Distance..." required)
+                                    button(type="submit" class="submiton-btn") Add
+                                    button#closePopupAstral(type="button" class="closePopup") Close
+            if !solarSystem || solarSystem.length === 0
+                p No solar systems found.
+            else
+                - let solarSystemNameDisplayed = false
+                .Css-container-content
+                    each astral, index in solarSystem
+                        .Css-content(data-id=`astral-${astral.Id_AO}`)
+                            p #{astral.astral_name}
+                            .astral-content(id=`astral-${astral.Id_AO}`)
+                                p #{astral.nature_object}
+                                p #{astral.diameter} Km
+                                p #{astral.distance} Unit
+                            .grid-astral
+                                .grid-astral-btn
+                                    button(type="button", class="custom-btn", id=`edit_astral_${index}`) Edit
+                                .grid-astral-btn
+                                    button(type="button", class="custom-btn", onclick=`deleteAstral(${astral.Id_AO})`) Delete
+                                div(class="popup", id=`myPopupCustomEdit_${index}`)
+                                    .popup-content
+                                        .popup-custom
+                                            .popup-custom-content
+                                                h1 Modify the astral object #{astral.astral_name}
+                                            .popup-custom-content
+                                                form(action=`/editAstral/${astral.Id_AO}`, method="post" class="form-popup")
+                                                    label(for="astral_name") Astral Name:
+                                                        input(type="text", name="astral_name", placeholder="Astral Object name..." value=astral.astral_name, required)
+                                                    label(for="nature_object") Nature:
+                                                        input(type="text", name="nature_object", placeholder="Nature object..." value=astral.nature_object, required)
+                                                    label(for="diameter") Diameter:
+                                                        input(type="number", name="diameter", placeholder="Diameter..." value=astral.diameter, required)
+                                                    label(for="distance") Distance:
+                                                        input(type="text", name="distance",  placeholder="Distance..." value=astral.distance, required)
+                                                    button(type="submit" class="submiton-btn") Modify
+                                            .popup-custom-content
+                                                button(type="button", class="closePopup", id=`closePopupEdit_${index}`) Close
+
+                        script.
+                                function deleteAstral(Id_AO) {
+                                    let finalPoint = "/deleteAstral/" + Id_AO;
+                                    fetch(finalPoint, { method: 'DELETE' })
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('Network response was not ok');
+                                            }
+                                            return response.json();
+                                        })
+                                        .then(data => {
+                                            if (data.done) {
+                                                const astralElement = document.querySelector(`[data-id='astral-${Id_AO}']`);
+                                                if (astralElement) {
+                                                    astralElement.remove();
+                                                }
+                                            } else {
+                                                alert("Error deleting astral object");
+                                            }
+                                        })
+                                        .catch(error => console.error('There was a problem with the fetch operation:', error));
+                                }
+
+
+
+    script(src="/javascript/custom.js")

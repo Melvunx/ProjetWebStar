@@ -1,0 +1,5 @@
+Home page --> way to register, login and see the purpose of the website
+Login / register --> forms to register and login
+User home page --> User Info (name, username, astrologic sign etc), way to change account, log out etc
+Information --> Documentation about the universe (systeme solar, suns, planets and other astral object) classed by categories and themes
+custom page --> user can create his own solar system with the creation functionality of our website

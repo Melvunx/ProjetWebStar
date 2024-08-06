@@ -9,19 +9,6 @@ const cookieParser = require("cookie-parser");
 const port = 4000;
 const saltRounds = 10;
 
-/*
-
-Installer :
-npm install express
-npm install body-parser
-npm install bcrypt
-npm install path
-npm install mysql
-npm install jsonwebtoken
-npm install cookie-parser
-
-*/
-
 //View Engine
 app.set("view engine", "pug");
 

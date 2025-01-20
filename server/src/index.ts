@@ -1,73 +1,32 @@
-const express = require("express");
-const app = express();
+require("dotenv").config();
+import cookieParser from "cookie-parser";
+import express from "express";
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
-const path = require("path");
-const mysql = require("mysql");
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
-const port = 4000;
-const saltRounds = 10;
+// const bcrypt = require("bcrypt");
 
-//View Engine
-app.set("view engine", "pug");
+const { PORT } = process.env;
 
-//Middlewares
+const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cookieParser());
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${Number(PORT)}`);
 });
-
-const database = mysql.createConnection({
-  host: "localhost",
-  user: "MelvunxAndMarsi",
-  password: "MaMaMilla930",
-  database: "starmation",
-});
-
-database.connect((err) => {
-  if (err) {
-    console.error("connection to Starmation database failed", err);
-  } else {
-    console.log("Connected to Starmation database !");
-  }
-});
-
-const secretKey = "StarSecret-Endromede";
-//threeHours --> temps avant expiration du token, durée de 3h
-const ThreeHours = 60 * 60 * 3;
-
-function generateToken(username) {
-  const payload = { username };
-  const options = { expiresIn: ThreeHours };
-  return jwt.sign(payload, secretKey, options);
-}
-
-function verifyToken(token) {
-  try {
-    const decoded = jwt.verify(token, secretKey);
-    return decoded.username;
-  } catch (err) {
-    return null;
-  }
-}
 
 //Routes
 app.get("/", (req, res) => {
-  res.render("home");
+  res.send("Hello, World!");
 });
 
-app.get("/register", (req, res) => {
-  res.render("register");
-});
+// app.get("/register", (req, res) => {
+//   res.render("register");
+// });
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
+// app.get("/login", (req, res) => {
+//   res.render("login");
+// });
 
 // changer pour permettre la connection seulement aux admin
 app.get(
@@ -182,118 +141,118 @@ app.get("/logout", (req, res) => {
 });
 
 //middleware de vérification --> vérifie si le token est présent pour connecter l'utilisateur
-app.get(
-  "/solarsyst",
-  (req, res, next) => {
-    // get the token from the cookie
-    const token = req.cookies.jwt;
-    console.log("\nToken verification...");
+// app.get(
+//   "/solarsyst",
+//   (req, res, next) => {
+//     // get the token from the cookie
+//     const token = req.cookies.jwt;
+//     console.log("\nToken verification...");
 
-    const decodedUsername = verifyToken(token);
+//     const decodedUsername = verifyToken(token);
 
-    // Verify the token
-    if (decodedUsername) {
-      // If the token is valid, it goes to the next middleware
-      console.log(
-        `\nToken validate ! \nThe user ${decodedUsername} is identified`
-      );
-      next();
-    } else {
-      // if the token is not valid, redirect to the login page
-      console.log("Invalid token");
-      res.render("login", { error: "Invalid or expired token" });
-    }
-  },
-  (req, res, next) => {
-    const userData = req.cookies.userData;
+//     // Verify the token
+//     if (decodedUsername) {
+//       // If the token is valid, it goes to the next middleware
+//       console.log(
+//         `\nToken validate ! \nThe user ${decodedUsername} is identified`
+//       );
+//       next();
+//     } else {
+//       // if the token is not valid, redirect to the login page
+//       console.log("Invalid token");
+//       res.render("login", { error: "Invalid or expired token" });
+//     }
+//   },
+//   (req, res, next) => {
+//     const userData = req.cookies.userData;
 
-    if (userData) {
-      // get the user
-      console.log("\nUser verification...");
-      res.render("solarsyst", { users: JSON.parse(userData) });
-      console.log("\nUser validate !");
-    } else {
-      console.log("User data not found");
-      res.render("login", { error: "Session expired" });
-    }
-  }
-);
+//     if (userData) {
+//       // get the user
+//       console.log("\nUser verification...");
+//       res.render("solarsyst", { users: JSON.parse(userData) });
+//       console.log("\nUser validate !");
+//     } else {
+//       console.log("User data not found");
+//       res.render("login", { error: "Session expired" });
+//     }
+//   }
+// );
 
-app.get(
-  "/stars",
-  (req, res, next) => {
-    // get the token from the cookie
-    const token = req.cookies.jwt;
-    console.log("\nToken verification...");
+// app.get(
+//   "/stars",
+//   (req, res, next) => {
+//     // get the token from the cookie
+//     const token = req.cookies.jwt;
+//     console.log("\nToken verification...");
 
-    const decodedUsername = verifyToken(token);
+//     const decodedUsername = verifyToken(token);
 
-    // Verify the token
-    if (decodedUsername) {
-      // If the token is valid, it goes to the next middleware
-      console.log(
-        `\nToken validate ! \nThe user ${decodedUsername} is identified`
-      );
+//     // Verify the token
+//     if (decodedUsername) {
+//       // If the token is valid, it goes to the next middleware
+//       console.log(
+//         `\nToken validate ! \nThe user ${decodedUsername} is identified`
+//       );
 
-      next();
-    } else {
-      // if the token is not valid, redirect to the login page
-      console.log("Invalid token");
-      res.render("login", { error: "Invalid or expired token" });
-    }
-  },
-  (req, res, next) => {
-    // get the userDate from the cookie
-    const userData = req.cookies.userData;
+//       next();
+//     } else {
+//       // if the token is not valid, redirect to the login page
+//       console.log("Invalid token");
+//       res.render("login", { error: "Invalid or expired token" });
+//     }
+//   },
+//   (req, res, next) => {
+//     // get the userDate from the cookie
+//     const userData = req.cookies.userData;
 
-    if (userData) {
-      // get the user
-      console.log("\nUser verification...");
-      res.render("stars", { users: JSON.parse(userData) });
-      console.log("\nUser validate !");
-    } else {
-      console.log("User data not found");
-      res.render("login", { error: "Session expired" });
-    }
-  }
-);
+//     if (userData) {
+//       // get the user
+//       console.log("\nUser verification...");
+//       res.render("stars", { users: JSON.parse(userData) });
+//       console.log("\nUser validate !");
+//     } else {
+//       console.log("User data not found");
+//       res.render("login", { error: "Session expired" });
+//     }
+//   }
+// );
 
-app.get(
-  "/constellation",
-  (req, res, next) => {
-    const token = req.cookies.jwt;
-    console.log("\nToken verification...");
+// app.get(
+//   "/constellation",
+//   (req, res, next) => {
+//     const token = req.cookies.jwt;
+//     console.log("\nToken verification...");
 
-    const decodedUsername = verifyToken(token);
+//     const decodedUsername = verifyToken(token);
 
-    // Verify the token
-    if (decodedUsername) {
-      // If the token is valid, it goes to the next middleware
-      console.log(
-        `\nToken validate ! \nThe user ${decodedUsername} is identified`
-      );
-      next();
-    } else {
-      // if the token is not valid, redirect to the login page
-      console.log("Invalid token");
-      res.render("login", { error: "Invalid or expired token" });
-    }
-  },
-  (req, res, next) => {
-    // get the userDate from the cookie
-    const userData = req.cookies.userData;
+//     // Verify the token
+//     if (decodedUsername) {
+//       // If the token is valid, it goes to the next middleware
+//       console.log(
+//         `\nToken validate ! \nThe user ${decodedUsername} is identified`
+//       );
+//       next();
+//     } else {
+//       // if the token is not valid, redirect to the login page
+//       console.log("Invalid token");
+//       res.render("login", { error: "Invalid or expired token" });
+//     }
+//   },
+//   (req, res, next) => {
+//     // get the userDate from the cookie
+//     const userData = req.cookies.userData;
 
-    if (userData) {
-      // get the user
-      console.log("\nUser verification...");
-      res.render("constellation", { users: JSON.parse(userData) });
-      console.log("\nUser validate !");
-    } else {
-      console.log("User data not found");
-      res.render("login", { error: "Session expired" });
-    }
-  }
-);
+//     if (userData) {
+//       // get the user
+//       console.log("\nUser verification...");
+//       res.render("constellation", { users: JSON.parse(userData) });
+//       console.log("\nUser validate !");
+//     } else {
+//       console.log("User data not found");
+//       res.render("login", { error: "Session expired" });
+//     }
+//   }
+// );
 
 //Page custom du site pour la création du système solaire
 app.get(
@@ -734,16 +693,3 @@ app.delete("/deleteAstral/:Id_AO", (req, res) => {
     }
   });
 });
-
-// app.delete('/delete/:Id_Acc', (req, res) => {
-//     const Id_Acc = req.params.Id_Acc;
-//     database.query("DELETE a, p FROM account a LEFT JOIN person p ON a.Id_Acc = p.Id_Acc WHERE a.Id_Acc = ?", [Id_Acc], function(err, result){
-//         if (err) {
-//             console.error(err);
-//             res.status(500).json({ error: "An error occurred " });
-//             return;
-//         }
-//         console.log(`Deleted Account and associated personal info with Id ${Id_Acc}`);
-//         res.status(200).json({ "delete done": true });
-//     });
-// });
